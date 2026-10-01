@@ -12,7 +12,7 @@ For a **categorical** column the picture is a **bar chart of counts**, which is 
 
 ## A histogram by hand
 
-Five cars have ages 1, 2, 2, 5, 9. Use bins \([0, 3)\), \([3, 6)\), \([6, 10)\).
+Five cars have ages 1, 2, 2, 5, 9. Use bins [0, 3), [3, 6), [6, 10).
 
 | Bin | Ages inside | Count |
 | --- | --- | ---: |
@@ -22,7 +22,7 @@ Five cars have ages 1, 2, 2, 5, 9. Use bins \([0, 3)\), \([3, 6)\), \([6, 10)\).
 
 Most cars are young. One car at age 9 is a long right tail. That is the same shape you should look for in `price` and `km`.
 
-The mean of those ages is \((1+2+2+5+9)/5 = 3.8\). The median is the middle value after sorting, which is 2. When the mean is well above the median, the right tail is pulling the average. Price in this file does that: median 16,900, mean 18,024, maximum 74,600.
+The mean of those ages is (1+2+2+5+9)/5 = 3.8. The median is the middle value after sorting, which is 2. When the mean is well above the median, the right tail is pulling the average. Price in this file does that: median 16,900, mean 18,024, maximum 74,600.
 
 ## What to plot
 

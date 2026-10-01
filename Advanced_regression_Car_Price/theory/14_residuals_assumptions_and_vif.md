@@ -4,17 +4,15 @@ Notebook: **3.1.2**, 5 marks. Three checks: residuals against fitted values, the
 
 ## What a residual is
 
-\[
-e_i = y_i - \widehat{y}_i
-\]
+eᵢ = yᵢ - ŷᵢ
 
-It is the miss on car \(i\), on the same scale as \(y\). If \(y\) is log price, the residual is a log-price miss. A residual of \(+0.2\) means the car sold for about \(e^{0.2} - 1 \approx 22\%\) more than the model predicted. It is not a currency residual unless \(y\) is currency.
+It is the miss on car i, on the same scale as y. If y is log price, the residual is a log-price miss. A residual of +0.2 means the car sold for about e^(0.2) - 1 ≈ 22% more than the model predicted. It is not a currency residual unless y is currency.
 
-The assumptions below are about these residuals. They are not extra paperwork. Each one is a way the formula \(X\beta\) can be the wrong summary of the data, which is exactly what the conclusion asks: “is a linear model sufficient?”
+The assumptions below are about these residuals. They are not extra paperwork. Each one is a way the formula Xβ can be the wrong summary of the data, which is exactly what the conclusion asks: “is a linear model sufficient?”
 
 ## 1. Linearity — residual versus fitted plot
 
-Plot \(e_i\) on the vertical axis and \(\widehat{y}_i\) on the horizontal axis. Add a horizontal line at 0.
+Plot eᵢ on the vertical axis and ŷᵢ on the horizontal axis. Add a horizontal line at 0.
 
 If the linear formula is enough, the cloud is a formless band around 0. The running average of the residuals does not curve.
 
@@ -46,21 +44,17 @@ The rows should not be copies of each other or a time series in disguise. This f
 
 ## 5. Multicollinearity and VIF
 
-Multicollinearity means some predictors are near-copies of each other. The model can still predict well, because either copy carries the signal. The **coefficients** become unstable: a small change in the data swings \(\beta\) from large positive to large negative, and the two correlated features split one effect arbitrarily. Feature-importance comments based on those coefficients are then not trustworthy. Ridge exists largely because of this.
+Multicollinearity means some predictors are near-copies of each other. The model can still predict well, because either copy carries the signal. The **coefficients** become unstable: a small change in the data swings β from large positive to large negative, and the two correlated features split one effect arbitrarily. Feature-importance comments based on those coefficients are then not trustworthy. Ridge exists largely because of this.
 
-VIF makes the idea a number. For feature \(j\), regress feature \(j\) on all the other features and take that regression’s \(R^2_j\):
+VIF makes the idea a number. For feature j, regress feature j on all the other features and take that regression’s R²ⱼ:
 
-\[
-\mathrm{VIF}_j = \frac{1}{1 - R^2_j}
-\]
+VIFⱼ = 1/(1 - R²ⱼ)
 
 ## A hand example
 
-Suppose age is regressed on the other columns and that regression has \(R^2 = 0.80\). The other columns already explain 80% of the variation in age. Then
+Suppose age is regressed on the other columns and that regression has R² = 0.80. The other columns already explain 80% of the variation in age. Then
 
-\[
-\mathrm{VIF}_{\text{age}} = \frac{1}{1 - 0.80} = 5
-\]
+VIF(age) = 1/(1 - 0.80) = 5
 
 The variance of the age coefficient is about 5 times what it would be if age were uncorrelated with the other columns. A common coursework rule is:
 

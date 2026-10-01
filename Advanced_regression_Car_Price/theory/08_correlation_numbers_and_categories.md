@@ -6,11 +6,9 @@ Notebook: **2.2.1** (3 marks) and **2.2.2** (3 marks).
 
 Correlation measures a straight-line association between two numeric columns. It does not mean one causes the other.
 
-\[
-r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \;\sum_{i=1}^{n} (y_i - \bar{y})^2}}
-\]
+r = (Σᵢ₌₁ⁿ (xᵢ - x̄)(yᵢ - ȳ))/(√(Σᵢ₌₁ⁿ (xᵢ - x̄)² Σᵢ₌₁ⁿ (yᵢ - ȳ)²))
 
-\(r\) is always between −1 and +1. Zero means no straight-line association. It can still hide a curve.
+r is always between −1 and +1. Zero means no straight-line association. It can still hide a curve.
 
 ## A three-car example that comes out exact
 
@@ -20,32 +18,26 @@ r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x
 | B | 50,000 | 18,000 |
 | C | 90,000 | 11,000 |
 
-Means: \(\bar{x} = 50{,}000\), \(\bar{y} = 18{,}000\).
+Means: x̄ = 50,000, ȳ = 18,000.
 
 Deviations of km: −40,000, 0, +40,000.  
 Deviations of price: +7,000, 0, −7,000.
 
 Numerator:
 
-\[
-(-40{,}000)(7{,}000) + 0 + (40{,}000)(-7{,}000) = -560{,}000{,}000
-\]
+(-40,000)(7,000) + 0 + (40,000)(-7,000) = -560,000,000
 
 Denominator:
 
-\[
-\sqrt{(2 \cdot 40{,}000^2)(2 \cdot 7{,}000^2)} = 40{,}000 \cdot 7{,}000 \cdot 2 = 560{,}000{,}000
-\]
+√((2 · 40,000²)(2 · 7,000²)) = 40,000 · 7,000 · 2 = 560,000,000
 
-\[
-r = \frac{-560{,}000{,}000}{560{,}000{,}000} = -1
-\]
+r = (-560,000,000)/560,000,000 = -1
 
-Price falls in a perfect straight line as kilometres rise. On the real file, \(r\) between `km` and `price` will be negative but not −1, because age, power, and model also move the price. Compute it; do not assume the toy result.
+Price falls in a perfect straight line as kilometres rise. On the real file, r between `km` and `price` will be negative but not −1, because age, power, and model also move the price. Compute it; do not assume the toy result.
 
 ## What the heatmap is for
 
-Section 2.2.1 asks for a correlation map **between features and the target**. Include the numeric predictors and the target you are actually modelling. If the model uses \(\ln(\text{price})\), correlate with \(\ln(\text{price})\), and say so. Correlating with raw price and then modelling log price answers a slightly different question.
+Section 2.2.1 asks for a correlation map **between features and the target**. Include the numeric predictors and the target you are actually modelling. If the model uses ln(price), correlate with ln(price), and say so. Correlating with raw price and then modelling log price answers a slightly different question.
 
 ```python
 cols = numeric_predictors + ["log_price"]
@@ -62,19 +54,17 @@ Read the heatmap in two passes:
 
 You cannot compute a meaningful correlation between `Fuel` and price, because `"Diesel"` minus `"Benzine"` is not a number.
 
-Section 2.2.2 asks you to **compare the average target across categories**. Group by the label and summarise \(y\):
+Section 2.2.2 asks you to **compare the average target across categories**. Group by the label and summarise y:
 
-\[
-\bar{y}_{g} = \frac{1}{n_g} \sum_{i \in g} y_i
-\]
+ȳ(g) = (1 / n(g)) × Σᵢ∈g yᵢ
 
-| Fuel, imaginary extract | Cars | Mean \(\ln(\text{price})\) | Mean price |
+| Fuel, imaginary extract | Cars | Mean ln(price) | Mean price |
 | --- | ---: | ---: | ---: |
 | Diesel | 3 | 9.70 | 16,300 |
 | Benzine | 3 | 9.55 | 14,000 |
 | Electric | 1 | 10.13 | 25,000 |
 
-Diesel’s log-price average is 0.15 above Benzine’s. Because \(e^{0.15} \approx 1.16\), that is about 16% higher on the price scale, in this toy table. Electric looks higher still, but it is one car. A bar of means without the counts will over-read Electric. Always print the count next to the mean.
+Diesel’s log-price average is 0.15 above Benzine’s. Because e^(0.15) ≈ 1.16, that is about 16% higher on the price scale, in this toy table. Electric looks higher still, but it is one car. A bar of means without the counts will over-read Electric. Always print the count next to the mean.
 
 ```python
 summary = (

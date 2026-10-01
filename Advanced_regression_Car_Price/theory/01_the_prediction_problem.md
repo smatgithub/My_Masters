@@ -12,13 +12,11 @@ That is **supervised regression**.
 
 Write one car as a row. If the features are age, kilometres, and power, the model looks like:
 
-\[
-\widehat{\text{price}} = \beta_0 + \beta_1 \cdot \text{age} + \beta_2 \cdot \text{km} + \beta_3 \cdot \text{hp}
-\]
+predicted price = β₀ + β₁ · age + β₂ · km + β₃ · hp
 
-\(\beta_0\) is the intercept: the predicted price when every feature is zero. Each other \(\beta\) is the change in predicted price when that feature increases by one unit and the other features stay fixed.
+β₀ is the intercept: the predicted price when every feature is zero. Each other β is the change in predicted price when that feature increases by one unit and the other features stay fixed.
 
-The hat on price means “prediction”, not the true listed price.
+“Predicted price” means the model’s number, not the true listed price.
 
 ## A three-car example you can finish by hand
 
@@ -32,15 +30,13 @@ Ignore every column except age. Suppose the reseller has only these three cars:
 
 Price falls by 2,000 for every extra year of age. The line that passes through all three points is:
 
-\[
-\widehat{\text{price}} = 24{,}000 - 2{,}000 \cdot \text{age}
-\]
+predicted price = 24,000 - 2,000 · age
 
-Check the middle car: \(24{,}000 - 2{,}000 \cdot 3 = 18{,}000\). The error is zero. Real data will not be this clean, because two cars of the same age still differ in kilometres, brand, and options. The model’s job is to find the \(\beta\) values that make the errors as small as possible **on average**, not to hit every car exactly.
+Check the middle car: 24,000 - 2,000 · 3 = 18,000. The error is zero. Real data will not be this clean, because two cars of the same age still differ in kilometres, brand, and options. The model’s job is to find the β values that make the errors as small as possible **on average**, not to hit every car exactly.
 
 ## Why the brief also talks about feature importance and regularisation
 
-A coefficient is a kind of importance, but only after the features are on a comparable scale. A coefficient of \(-0.02\) on kilometres looks tiny next to \(-2{,}000\) on age, because one extra kilometre is a much smaller change than one extra year. Scaling, covered later, is what makes those coefficients comparable.
+A coefficient is a kind of importance, but only after the features are on a comparable scale. A coefficient of -0.02 on kilometres looks tiny next to -2,000 on age, because one extra kilometre is a much smaller change than one extra year. Scaling, covered later, is what makes those coefficients comparable.
 
 **Regularisation** (Ridge and Lasso) is what you do when the model can fit the training cars too closely, especially after you turn every option and every model name into its own column. The penalty pulls coefficients toward zero so the formula stays stable on cars the model has not seen.
 

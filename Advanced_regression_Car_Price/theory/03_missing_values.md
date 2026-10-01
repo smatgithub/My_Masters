@@ -6,9 +6,7 @@ Notebook: **2.1.1**, 1 mark.
 
 A missing value is a cell where the measurement was not recorded. In pandas it appears as `NaN`. An empty string in the CSV also becomes missing if you treat it as such. The number you report is the **proportion** in each column:
 
-\[
-\text{missing proportion}_j = \frac{\text{number of missing rows in column } j}{\text{number of rows}}
-\]
+missing proportionⱼ = (number of missing rows in column j) / (number of rows)
 
 On this file that proportion is **0 for every column**. You still have to show the calculation. A marker who only sees an empty code cell cannot know that you checked.
 
@@ -24,11 +22,11 @@ Suppose a 5-car extract had missing age:
 | D | 6 | 12,000 |
 | E | 4 | 17,000 |
 
-Three of five ages are present. The proportion missing is \(1/5 = 0.20\).
+Three of five ages are present. The proportion missing is 1/5 = 0.20.
 
 **Drop the row** if the hole is rare and the row cannot be used. You would lose car C and fit the model on A, B, D, and E. You also lose that car’s price, kilometres, and options, which is wasteful when only one field is missing.
 
-**Impute** when you want to keep the row. The mean of the known ages is \((2+4+6+4)/4 = 4\). Filling C with 4 lets the row stay. The cost is that you invented a value. If many rows are filled with the same mean, that column’s variance shrinks and the model becomes too confident.
+**Impute** when you want to keep the row. The mean of the known ages is (2+4+6+4)/4 = 4. Filling C with 4 lets the row stay. The cost is that you invented a value. If many rows are filled with the same mean, that column’s variance shrinks and the model becomes too confident.
 
 For a category, the equivalent fill is the **mode** (the most common label), or an explicit level called `"Missing"`. `"Missing"` is better when the fact that the value was absent might itself be informative. Mean-imputation is for numbers. Mode-imputation is for labels. Do not average the strings `"Diesel"` and `"Benzine"`.
 

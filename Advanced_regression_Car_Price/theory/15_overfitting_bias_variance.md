@@ -25,7 +25,7 @@ Fit on the training set. Score **both** sets with the same metric.
 
 “Much smaller” needs your units. If log-price MAE is 0.12 on train and 0.13 on test, that is a small gap. If it is 0.05 on train and 0.20 on test, the model is memorising. Report the numbers rather than the adjective alone.
 
-\(R^2\) gives the same reading: a large drop from train \(R^2\) to test \(R^2\) is overfitting.
+R² gives the same reading: a large drop from train R² to test R² is overfitting.
 
 ## Why this dataset can overfit even though there are 15,915 rows
 
@@ -41,7 +41,7 @@ Ridge and Lasso add a penalty so the fit is **not** the pure RSS minimiser. Trai
 
 Suppose ordinary regression has train MAE 900 and test MAE 1,600, in currency after the inverse transform. The gap of 700 is the overfitting signature.
 
-Ridge, with a moderate \(\alpha\), might move those to train MAE 1,050 and test MAE 1,300. Training got worse, test got better, the gap shrank. Regularisation helped generalisation.
+Ridge, with a moderate α, might move those to train MAE 1,050 and test MAE 1,300. Training got worse, test got better, the gap shrank. Regularisation helped generalisation.
 
 If instead Ridge moves them to 1,100 and 1,650, test got worse. The ordinary model was already near the right complexity, and the penalty over-shrunk real signal. You still report it.
 
@@ -49,5 +49,5 @@ These figures are illustrations of the patterns, not the results in your file. Y
 
 ## What usually goes wrong
 
-- Declaring overfitting because training \(R^2\) is below 1. No model of used-car prices will fit perfectly. Overfitting is a **gap** between train and test, not an imperfect train score.
-- Tuning \(\alpha\) on the test set and then using the small train-test gap as proof that you did not overfit. You used the test set to choose the model, so the gap is optimistic. Topic 18 separates the search from the final quote.
+- Declaring overfitting because training R² is below 1. No model of used-car prices will fit perfectly. Overfitting is a **gap** between train and test, not an imperfect train score.
+- Tuning α on the test set and then using the small train-test gap as proof that you did not overfit. You used the test set to choose the model, so the gap is optimistic. Topic 18 separates the search from the final quote.

@@ -6,9 +6,9 @@ Section 4 is not a summary of the theory files. It is a set of claims about **yo
 
 ## 3.4.1 The metric table
 
-Put ordinary linear regression, Ridge, and Lasso in one table. Same rows as test cars. Same \(y\). Same inverse transform if you report currency.
+Put ordinary linear regression, Ridge, and Lasso in one table. Same rows as test cars. Same y. Same inverse transform if you report currency.
 
-| Model | Alpha | Train MAE (log) | Test MAE (log) | Test RMSE (log) | Test \(R^2\) | Test MAE (currency) | Coefficients exactly zero |
+| Model | Alpha | Train MAE (log) | Test MAE (log) | Test RMSE (log) | Test R² | Test MAE (currency) | Coefficients exactly zero |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Linear | — | from your fit |  |  |  |  | 0, unless a column was unused |
 | Ridge | your best |  |  |  |  |  | should be 0 |
@@ -20,7 +20,7 @@ How to read a row:
 
 - Test MAE answers “how far off is a typical car?”
 - The train-minus-test gap answers “did we overfit?”
-- Currency MAE answers “is that miss small relative to a median price of 16,900?” A currency MAE of 1,500 is a very different business result from a currency MAE of 6,000. Divide by 16,900 if you want a rough percentage of the typical car. That ratio is a communication device. It is not \(R^2\).
+- Currency MAE answers “is that miss small relative to a median price of 16,900?” A currency MAE of 1,500 is a very different business result from a currency MAE of 6,000. Divide by 16,900 if you want a rough percentage of the typical car. That ratio is a communication device. It is not R².
 
 A model “wins” only on a metric you named in advance. If Lasso has the best test MAE by 0.001 on the log scale, say the three models are practically tied. Do not crown a winner on noise.
 

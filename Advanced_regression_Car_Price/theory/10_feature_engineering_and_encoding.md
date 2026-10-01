@@ -14,17 +14,13 @@ Build a column only if you can say what one extra unit means.
 
 **Usage intensity.** Kilometres per year of age:
 
-\[
-\text{km per year} = \frac{\text{km}}{\text{age}}
-\]
+km per year = km/age
 
-This separates a 3-year-old car with 90,000 km from a 3-year-old car with 20,000 km more clearly than `km` and `age` alone. The trap is age 0. A new car makes the ratio undefined. Guard it: if age is 0, set the ratio to missing and then fill it, or define the denominator as \(\max(\text{age}, 1)\), and write down which guard you used. If you keep both `km` and `km per year`, VIF will rise because each is a rearrangement of the other. Prefer one story: either the pair `(km, age)`, or `(km per year, age)`, not all three without a VIF check.
+This separates a 3-year-old car with 90,000 km from a 3-year-old car with 20,000 km more clearly than `km` and `age` alone. The trap is age 0. A new car makes the ratio undefined. Guard it: if age is 0, set the ratio to missing and then fill it, or define the denominator as max(age, 1), and write down which guard you used. If you keep both `km` and `km per year`, VIF will rise because each is a rearrangement of the other. Prefer one story: either the pair `(km, age)`, or `(km per year, age)`, not all three without a VIF check.
 
 **Power density.**
 
-\[
-\text{kW per litre} = \frac{\text{hp\_kW}}{\text{Displacement\_cc} / 1000}
-\]
+kW per litre = hp_kW/(Displacement_cc / 1000)
 
 A 66 kW engine in 1.4 litres is a different machine from 66 kW in 2.0 litres. Again, do not keep this **and** both parents unless VIF says the overlap is tolerable. A clean choice is to keep `hp_kW` and `Displacement_cc` as they are, and add a density column only if the residual plots still show structure. You do not have to add columns to score the marks. A short comment that says “I checked brand, age, and km and did not add a ratio because the two raw columns already enter the linear model” is a real decision.
 
@@ -32,27 +28,19 @@ A 66 kW engine in 1.4 litres is a different machine from 66 kW in 2.0 litres. Ag
 
 ## Encoding: turn labels into numbers the formula can multiply
 
-A linear model computes \(\beta \cdot x\). It cannot multiply \(\beta\) by the string `"Diesel"`.
+A linear model computes β · x. It cannot multiply β by the string `"Diesel"`.
 
 **One-hot (dummy) encoding** is the right default for these categories, because the levels are not in a numeric order. Metallic is not “more paint” than Uni/basic.
 
-\[
-x_{\text{Diesel}} =
-\begin{cases}
-1 & \text{if Fuel is Diesel} \\
-0 & \text{otherwise}
-\end{cases}
-\]
+x(Diesel) = 1 if Fuel is Diesel, and 0 otherwise
 
-For a column with \(K\) levels you keep \(K-1\) dummies. The missing level is the **reference**. Its effect sits inside the intercept. If Fuel has Benzine, Diesel, and LPG/CNG, and you drop Benzine, then:
+For a column with K levels you keep K-1 dummies. The missing level is the **reference**. Its effect sits inside the intercept. If Fuel has Benzine, Diesel, and LPG/CNG, and you drop Benzine, then:
 
-\[
-\widehat{y} = \beta_0 + \beta_D \cdot \text{Diesel} + \beta_L \cdot \text{LPG} + \cdots
-\]
+ŷ = β₀ + β(D) · Diesel + β(L) · LPG + …
 
-A Benzine car gets only \(\beta_0\) from this group. A Diesel car gets \(\beta_0 + \beta_D\). So \(\beta_D\) is the Diesel-versus-Benzine difference, not the absolute Diesel price.
+A Benzine car gets only β₀ from this group. A Diesel car gets β₀ + β(D). So β(D) is the Diesel-versus-Benzine difference, not the absolute Diesel price.
 
-If you keep all \(K\) dummies **and** an intercept, the columns sum to 1 and ordinary least squares cannot invert \(X^\top X\). sklearn’s `OneHotEncoder(drop="first")` drops one level for you. Ridge and Lasso can tolerate the full set because the penalty breaks the tie, but dropping one level keeps the three models comparable. Do that.
+If you keep all K dummies **and** an intercept, the columns sum to 1 and ordinary least squares cannot invert Xᵀ X. sklearn’s `OneHotEncoder(drop="first")` drops one level for you. Ridge and Lasso can tolerate the full set because the penalty breaks the tie, but dropping one level keeps the three models comparable. Do that.
 
 **Do not** integer-encode `make_model` as Audi A1 = 0, Audi A3 = 1, Opel Astra = 2. That tells the model that Astra is twice A3, which is false.
 

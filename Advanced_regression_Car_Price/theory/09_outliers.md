@@ -8,29 +8,21 @@ An outlier is a value that sits far from the bulk of the same column. It is not 
 
 ## The IQR fence, computed by hand
 
-Sort a column and pick the 25th percentile \(Q_1\) and the 75th percentile \(Q_3\). The interquartile range is the width of the middle half:
+Sort a column and pick the 25th percentile Q₁ and the 75th percentile Q₃. The interquartile range is the width of the middle half:
 
-\[
-\mathrm{IQR} = Q_3 - Q_1
-\]
+IQR = Q₃ - Q₁
 
 Tukey’s fences are:
 
-\[
-\text{lower} = Q_1 - 1.5 \cdot \mathrm{IQR}, \qquad \text{upper} = Q_3 + 1.5 \cdot \mathrm{IQR}
-\]
+lower = Q₁ - 1.5 · IQR, upper = Q₃ + 1.5 · IQR
 
-Toy prices, already sorted: 10, 12, 13, 14, 15, 16, 18, 40. Eight numbers. \(Q_1\) is the value at the 25% position. A simple teaching split takes the median of the lower half and the upper half: lower half 10, 12, 13, 14 so \(Q_1 = 12.5\); upper half 15, 16, 18, 40 so \(Q_3 = 17\). Then
+Toy prices, already sorted: 10, 12, 13, 14, 15, 16, 18, 40. Eight numbers. Q₁ is the value at the 25% position. A simple teaching split takes the median of the lower half and the upper half: lower half 10, 12, 13, 14 so Q₁ = 12.5; upper half 15, 16, 18, 40 so Q₃ = 17. Then
 
-\[
-\mathrm{IQR} = 17 - 12.5 = 4.5
-\]
+IQR = 17 - 12.5 = 4.5
 
-\[
-\text{upper} = 17 + 1.5 \cdot 4.5 = 23.75
-\]
+upper = 17 + 1.5 · 4.5 = 23.75
 
-40 sits above 23.75, so it is an outlier under this rule. 10 sits above the lower fence \(12.5 - 6.75 = 5.75\), so it is not.
+40 sits above 23.75, so it is an outlier under this rule. 10 sits above the lower fence 12.5 - 6.75 = 5.75, so it is not.
 
 Pandas uses a precise percentile, so your notebook’s fence will not match this hand split exactly. The idea is the same. Apply it to each numeric column and report how many rows fall outside.
 
@@ -48,11 +40,9 @@ A box plot draws the same fence: the whiskers stop at the last point inside the 
 
 A z-score measures distance from the mean in standard deviations:
 
-\[
-z_i = \frac{x_i - \bar{x}}{s}
-\]
+zᵢ = (xᵢ - x̄)/s
 
-A common cut is \(|z| > 3\). This rule assumes the column is roughly symmetric. Price is skewed, so the mean and \(s\) are themselves inflated by the tail, and the rule both misses some tail points and flags ordinary ones. Prefer the IQR fence on the raw columns. If you already took \(\ln(\text{price})\), the log-price z-score is more reasonable because the distribution is closer to symmetric. Do not stack three different rules and delete every row that fails any of them.
+A common cut is |z| > 3. This rule assumes the column is roughly symmetric. Price is skewed, so the mean and s are themselves inflated by the tail, and the rule both misses some tail points and flags ordinary ones. Prefer the IQR fence on the raw columns. If you already took ln(price), the log-price z-score is more reasonable because the distribution is closer to symmetric. Do not stack three different rules and delete every row that fails any of them.
 
 ## How to handle them on this dataset
 
